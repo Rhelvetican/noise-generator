@@ -31,3 +31,19 @@ impl Resolution {
         }
     }
 }
+
+pub enum Format {
+    JPEG,
+    PNG,
+    JPG,
+}
+
+impl Format {
+    pub fn get_format(&self) -> String {
+        match self {
+            Format::JPEG => "jpeg".to_string(),
+            Format::PNG => "png".to_string(),
+            Format::JPG => "jpg".to_string(),
+        }
+    }
+}
