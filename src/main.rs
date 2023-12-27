@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 use image::ImageFormat;
 use noise_generator::*;
 
@@ -63,6 +65,13 @@ fn main() {
             Mode::BlackAndWhiteOnly
         }
     };
+
+    if !PathBuf::from("output").exists() {
+        std::fs::DirBuilder::new()
+            .recursive(true)
+            .create("output")
+            .expect("Failed to create output directory");
+    }
 
     let img_info = Image::new(mode, res, format);
     img_info.generate_image("output/out.png");
