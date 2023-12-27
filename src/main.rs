@@ -1,5 +1,4 @@
 use std::path::PathBuf;
-
 use image::ImageFormat;
 use noise_generator::*;
 
