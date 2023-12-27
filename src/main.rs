@@ -51,6 +51,10 @@ fn main() {
     println!("1. Black and White");
     println!("2. Grayscale");
 
+    std::io::stdin()
+    .read_line(&mut read_buffer)
+    .expect("Failed to read line");
+
     let mode = match read_buffer.as_str().trim() {
         "1" => Mode::BlackAndWhiteOnly,
         "2" => Mode::Grayscale,

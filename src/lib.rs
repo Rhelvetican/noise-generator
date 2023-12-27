@@ -1,4 +1,5 @@
 use image::{ImageFormat, Rgb};
+use rand::thread_rng;
 
 pub enum Mode {
     BlackAndWhiteOnly,
