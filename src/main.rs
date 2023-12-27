@@ -64,15 +64,6 @@ fn main() {
         }
     };
 
-    println!("Choose your file name: ");
-
-    let mut read_buffer = String::new();
-    std::io::stdin()
-    .read_line(&mut read_buffer)
-    .expect("Failed to read line");
-
-    let name = read_buffer;
-
     let img_info = Image::new(mode, res, format);
-    img_info.generate_image(format!("output/{}.png", name));
+    img_info.generate_image("output/out.png");
 }
