@@ -66,8 +66,8 @@ fn main() {
 
     let format = match read_buffer.as_str().trim() {
         "1" => ImageFormat::Png,
-        // "2" => ImageFormat::Bmp,
-        // "3" => ImageFormat::Jpeg,
+        "2" => ImageFormat::Bmp,
+        "3" => ImageFormat::Jpeg,
         _ => {
             println!("Invalid input, defaulting to PNG");
             ImageFormat::Png
@@ -100,5 +100,18 @@ fn main() {
     }
 
     let img_info = Image::new(mode, res, format);
-    img_info.generate_image("output/out.png");
+    match img_info.format {
+        ImageFormat::Png => {
+            img_info.generate_image("output/out.png");
+        }
+        ImageFormat::Bmp => {
+            img_info.generate_image("output/out.bmp");
+        }
+        ImageFormat::Jpeg => {
+            img_info.generate_image("output/out.jpeg");
+        }
+        _ => {
+            println!("Invalid image format")
+        }
+    };
 }
