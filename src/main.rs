@@ -1,8 +1,6 @@
 use image::ImageFormat;
 use noise_generator::*;
 
-const OUTPUT_LOCATION: &str = "output/out.png";
-
 fn main() {
     println!("Choose your resolution: ");
     println!("1. SD (640x480)");
@@ -30,8 +28,8 @@ fn main() {
 
     println!("Choose your image format: ");
     println!("1. PNG");
-    println!("2. BMP");
-    println!("3. JPEG");
+    // println!("2. BMP");
+    // println!("3. JPEG");
 
     let mut read_buffer = String::new();
     std::io::stdin()
@@ -40,8 +38,8 @@ fn main() {
 
     let format = match read_buffer.as_str().trim() {
         "1" => ImageFormat::Png,
-        "2" => ImageFormat::Bmp,
-        "3" => ImageFormat::Jpeg,
+        // "2" => ImageFormat::Bmp,
+        // "3" => ImageFormat::Jpeg,
         _ => {
             println!("Invalid input, defaulting to PNG");
             ImageFormat::Png
@@ -66,6 +64,15 @@ fn main() {
         }
     };
 
+    println!("Choose your file name: ");
+
+    let mut read_buffer = String::new();
+    std::io::stdin()
+    .read_line(&mut read_buffer)
+    .expect("Failed to read line");
+
+    let name = read_buffer;
+
     let img_info = Image::new(mode, res, format);
-    img_info.generate_image(OUTPUT_LOCATION);
+    img_info.generate_image(format!("output/{}.png", name));
 }

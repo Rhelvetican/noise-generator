@@ -55,7 +55,7 @@ impl Image {
             format,
         }
     }
-    pub fn generate_image(self, output_path: &str) {
+    pub fn generate_image(self, output_path: String) {
         let (width, height) = self.resolution.get_resolution();
         let mut imgbuf = image::ImageBuffer::new(width, height);
         let pallette = self.mode.get_pallette();
