@@ -23,6 +23,9 @@ fn main() {
         "3" => Resolution::FHD,
         "4" => Resolution::QHD,
         "5" => Resolution::UHD,
-        _ => panic!("Invalid input"),
+        _ => {
+            println!("Invalid input, defaulting to SD");
+            Resolution::SD
+        },
     };
 }
