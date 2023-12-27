@@ -5,6 +5,7 @@ use rand::{thread_rng, Rng};
 pub enum Mode {
     BlackAndWhiteOnly,
     Grayscale,
+    Rainbow,
 }
 
 impl Mode {
@@ -15,6 +16,28 @@ impl Mode {
                 let mut pallette = Vec::new();
                 for i in 0..=255 {
                     pallette.push(Rgb([i, i, i]));
+                }
+                pallette
+            },
+            Mode::Rainbow => {
+                let mut pallette = Vec::new();
+                for i in 0..=255 {
+                    pallette.push(Rgb([i, 0, 0]));
+                }
+                for i in 0..=255 {
+                    pallette.push(Rgb([255, i, 0]));
+                }
+                for i in 0..=255 {
+                    pallette.push(Rgb([255, 255, i]));
+                }
+                for i in 0..=255 {
+                    pallette.push(Rgb([255 - i, 255, 255]));
+                }
+                for i in 0..=255 {
+                    pallette.push(Rgb([0, 255 - i, 255]));
+                }
+                for i in 0..=255 {
+                    pallette.push(Rgb([0, 0, 255 - i]));
                 }
                 pallette
             }
@@ -72,9 +95,14 @@ impl Image {
                     true => Rgb([0, 0, 0]),
                     false => Rgb([255, 255, 255]),
                 }
-            } else {
+            } else if self.mode == Mode::Grayscale {
                 let r = thread_rng().gen_range(0..=255);
                 *pix = Rgb([r, r, r]);
+            } else {
+                let r = thread_rng().gen_range(0..=255);
+                let g = thread_rng().gen_range(0..=255);
+                let b = thread_rng().gen_range(0..=255);
+                *pix = Rgb([r, g, b]);
             }
         }
 
