@@ -54,8 +54,8 @@ fn main() {
 
     let mut read_buffer = String::new();
     std::io::stdin()
-    .read_line(&mut read_buffer)
-    .expect("Failed to read line");
+        .read_line(&mut read_buffer)
+        .expect("Failed to read line");
 
     let mode = match read_buffer.as_str().trim() {
         "1" => Mode::BlackAndWhiteOnly,

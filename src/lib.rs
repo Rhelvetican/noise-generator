@@ -75,7 +75,7 @@ impl Image {
                 *pix = Rgb([r, r, r]);
             }
         }
-        
+
         imgbuf.save(output_path).unwrap();
     }
 }
