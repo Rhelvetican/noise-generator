@@ -1,5 +1,4 @@
-use image::{ImageBuffer, Rgb, ImageFormat};
-
+use image::ImageFormat;
 use noise_generator::*;
 
 const OUTPUT_LOCATION: &str = "output/out.png";
@@ -62,5 +61,5 @@ fn main() {
     };
 
     let img_info = Image::new(mode, res, format);
-    
+    img_info.generate_image(OUTPUT_LOCATION);
 }
