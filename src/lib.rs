@@ -28,6 +28,7 @@ pub enum Resolution {
     FHD,
     QHD,
     UHD,
+    Custom(u32, u32),
 }
 
 impl Resolution {
@@ -38,6 +39,7 @@ impl Resolution {
             Resolution::FHD => (1920, 1080),
             Resolution::QHD => (2560, 1440),
             Resolution::UHD => (3840, 2160),
+            Resolution::Custom(width, height) => (*width, *height),
         }
     }
 }

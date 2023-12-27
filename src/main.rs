@@ -10,6 +10,7 @@ fn main() {
     println!("3. FHD (1920x1080)");
     println!("4. QHD (2560x1440)");
     println!("5. UHD (3840x2160)");
+    println!("6. Custom (input width and height)");
 
     let mut read_buffer = String::new();
     std::io::stdin()
@@ -22,6 +23,31 @@ fn main() {
         "3" => Resolution::FHD,
         "4" => Resolution::QHD,
         "5" => Resolution::UHD,
+        "6" => {
+            println!("Enter width: ");
+            let mut read_buffer = String::new();
+            std::io::stdin()
+                .read_line(&mut read_buffer)
+                .expect("Failed to read line");
+            let width = read_buffer
+                .as_str()
+                .trim()
+                .parse::<u32>()
+                .expect("Failed to parse width");
+
+            println!("Enter height: ");
+            let mut read_buffer = String::new();
+            std::io::stdin()
+                .read_line(&mut read_buffer)
+                .expect("Failed to read line");
+            let height = read_buffer
+                .as_str()
+                .trim()
+                .parse::<u32>()
+                .expect("Failed to parse height");
+
+            Resolution::Custom(width, height)
+        }
         _ => {
             println!("Invalid input, defaulting to SD");
             Resolution::SD
