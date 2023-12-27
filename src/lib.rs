@@ -1,3 +1,5 @@
+use image::ImageFormat;
+
 pub enum Mode {
     BlackAndWhiteOnly,
     Grayscale,
@@ -32,24 +34,18 @@ impl Resolution {
     }
 }
 
-pub enum Format {
-    JPEG,
-    PNG,
-    JPG,
-}
-
-impl Format {
-    pub fn get_format(&self) -> String {
-        match self {
-            Format::JPEG => "jpeg".to_string(),
-            Format::PNG => "png".to_string(),
-            Format::JPG => "jpg".to_string(),
-        }
-    }
-}
-
 pub struct Image {
     pub mode: Mode,
     pub resolution: Resolution,
-    pub format: Format,
+    pub format: ImageFormat,
+}
+
+impl Image {
+    pub fn new(mode: Mode, resolution: Resolution, format: ImageFormat) -> Self {
+        Self {
+            mode,
+            resolution,
+            format,
+        }
+    }
 }

@@ -1,4 +1,4 @@
-use image::{ImageBuffer, Rgb};
+use image::{ImageBuffer, Rgb, ImageFormat};
 
 use noise_generator::*;
 
@@ -28,4 +28,39 @@ fn main() {
             Resolution::SD
         }
     };
+
+    println!("Choose your image format: ");
+    println!("1. PNG");
+    println!("2. BMP");
+    println!("3. JPEG");
+
+    std::io::stdin()
+    .read_line(&mut read_buffer)
+    .expect("Failed to read line");
+
+    let format = match read_buffer.as_str().trim() {
+        "1" => ImageFormat::Png,
+        "2" => ImageFormat::Bmp,
+        "3" => ImageFormat::Jpeg,
+        _ => {
+            println!("Invalid input, defaulting to PNG");
+            ImageFormat::Png
+        }
+    };
+
+    println!("Choose your mode: ");
+    println!("1. Black and White");
+    println!("2. Grayscale");
+
+    let mode = match read_buffer.as_str().trim() {
+        "1" => Mode::BlackAndWhiteOnly,
+        "2" => Mode::Grayscale,
+        _ => {
+            println!("Invalid input, defaulting to Black and White");
+            Mode::BlackAndWhiteOnly
+        }
+    };
+
+    let img_info = Image::new(mode, res, format);
+    
 }
