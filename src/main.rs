@@ -56,8 +56,8 @@ fn main() {
 
     println!("Choose your image format: ");
     println!("1. PNG");
-    // println!("2. BMP");
-    // println!("3. JPEG");
+    println!("2. BMP");
+    println!("3. JPEG");
 
     let mut read_buffer = String::new();
     std::io::stdin()
@@ -77,6 +77,7 @@ fn main() {
     println!("Choose your mode: ");
     println!("1. Black and White");
     println!("2. Grayscale");
+    println!("3. Rainbow");
 
     let mut read_buffer = String::new();
     std::io::stdin()
