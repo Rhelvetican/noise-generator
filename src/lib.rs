@@ -1,5 +1,5 @@
 use image::{ImageFormat, Rgb};
-use rand::thread_rng;
+use rand::{thread_rng, Rng};
 
 pub enum Mode {
     BlackAndWhiteOnly,
@@ -62,6 +62,21 @@ impl Image {
         for (x, y, pixel) in imgbuf.enumerate_pixels_mut() {
             *pixel = pallette[(x + y) as usize % pallette.len()];
         }
+
+        for (_x, _y, pix) in imgbuf.enumerate_pixels_mut() {
+            *pix = Rgb([
+                match thread_rng().gen_range(0..=1) {
+                    0 => 0,
+                    _ => 255,
+                },
+                match thread_rng().gen_range(0..=1) {
+                    0 => 0,
+                    _ => 255,
+                },
+                ,
+            ]);
+        }
+        
         imgbuf.save(output_path).unwrap();
     }
 }
