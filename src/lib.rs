@@ -1,6 +1,7 @@
 use image::{ImageFormat, Rgb};
 use rand::{thread_rng, Rng};
 
+#[derive(PartialEq)]
 pub enum Mode {
     BlackAndWhiteOnly,
     Grayscale,
@@ -64,7 +65,7 @@ impl Image {
         }
 
         for (_x, _y, pix) in imgbuf.enumerate_pixels_mut() {
-            if mode == Mode::BlackAndWhiteOnly {
+            if self.mode == Mode::BlackAndWhiteOnly {
                 *pix = match thread_rng().gen_bool(0.5f64) {
                     true => Rgb([0, 0, 0]),
                     false => Rgb([255, 255, 255]),
