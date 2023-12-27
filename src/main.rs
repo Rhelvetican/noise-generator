@@ -1,18 +1,23 @@
-use image::RgbImage;
-use std::{
-    env,
-    str,
-    path::PathBuf
-};
-use rand::Rng;
+use image::{ImageBuffer, Rgb};
+
 use noise_generator::*;
 
-const USAGE: &'static str = "Usage: ./noisegen [-arguments] <output location>";
+const OUTPUT_LOCATION: &str = "output/out.png";
 
-fn main() -> Result<(), ()> {
-    
+fn main() {
+    println!("Choose your resolution: ");
+    println!("1. SD (640x480)");
+    println!("2. HD (1280x720)");
+    println!("3. FHD (1920x1080)");
+    println!("4. QHD (2560x1440)");
+    println!("5. UHD (3840x2160)");
 
-    println!("Hello, world!");
+    let mut read_buffer = String::new();
+    std::io::stdin()
+        .read_line(&mut read_buffer)
+        .expect("Failed to read line");
 
-    Ok(())
+    match read_buffer {
+        _ => panic!("Invalid input"),
+    }
 }

@@ -47,3 +47,9 @@ impl Format {
         }
     }
 }
+
+pub struct Image {
+    pub mode: Mode,
+    pub resolution: Resolution,
+    pub format: Format,
+}
