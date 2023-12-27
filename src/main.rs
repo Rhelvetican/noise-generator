@@ -17,7 +17,12 @@ fn main() {
         .read_line(&mut read_buffer)
         .expect("Failed to read line");
 
-    match read_buffer {
+    let res = match read_buffer.as_str().trim() {
+        "1" => Resolution::SD,
+        "2" => Resolution::HD,
+        "3" => Resolution::FHD,
+        "4" => Resolution::QHD,
+        "5" => Resolution::UHD,
         _ => panic!("Invalid input"),
-    }
+    };
 }
