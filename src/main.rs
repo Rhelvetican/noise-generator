@@ -34,8 +34,8 @@ fn main() {
     println!("3. JPEG");
 
     std::io::stdin()
-    .read_line(&mut read_buffer)
-    .expect("Failed to read line");
+        .read_line(&mut read_buffer)
+        .expect("Failed to read line");
 
     let format = match read_buffer.as_str().trim() {
         "1" => ImageFormat::Png,
