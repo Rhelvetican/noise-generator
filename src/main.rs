@@ -86,6 +86,7 @@ fn main() {
     let mode = match read_buffer.as_str().trim() {
         "1" => Mode::BlackAndWhiteOnly,
         "2" => Mode::Grayscale,
+        "3" => Mode::Rainbow,
         _ => {
             println!("Invalid input, defaulting to Black and White");
             Mode::BlackAndWhiteOnly
