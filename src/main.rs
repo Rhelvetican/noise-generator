@@ -33,6 +33,7 @@ fn main() {
     println!("2. BMP");
     println!("3. JPEG");
 
+    let mut read_buffer = String::new();
     std::io::stdin()
         .read_line(&mut read_buffer)
         .expect("Failed to read line");
@@ -51,6 +52,7 @@ fn main() {
     println!("1. Black and White");
     println!("2. Grayscale");
 
+    let mut read_buffer = String::new();
     std::io::stdin()
     .read_line(&mut read_buffer)
     .expect("Failed to read line");
