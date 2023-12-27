@@ -18,7 +18,7 @@ impl Mode {
                     pallette.push(Rgb([i, i, i]));
                 }
                 pallette
-            },
+            }
             Mode::Rainbow => {
                 let mut pallette = Vec::new();
                 for i in 0..=255 {
