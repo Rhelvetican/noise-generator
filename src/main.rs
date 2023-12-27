@@ -1,6 +1,6 @@
-use std::path::PathBuf;
 use image::ImageFormat;
 use noise_generator::*;
+use std::path::PathBuf;
 
 fn main() {
     println!("Choose your resolution: ");
@@ -112,7 +112,8 @@ fn main() {
             img_info.generate_image("output/out.jpeg");
         }
         _ => {
-            println!("Invalid image format")
+            println!("Invalid image format, defaulting to PNG");
+            img_info.generate_image("output/out.png");
         }
     };
 }
