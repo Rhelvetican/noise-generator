@@ -26,6 +26,6 @@ fn main() {
         _ => {
             println!("Invalid input, defaulting to SD");
             Resolution::SD
-        },
+        }
     };
 }
