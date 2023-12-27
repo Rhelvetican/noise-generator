@@ -64,20 +64,10 @@ impl Image {
         }
 
         for (_x, _y, pix) in imgbuf.enumerate_pixels_mut() {
-            *pix = Rgb([
-                match thread_rng().gen_range(0..=1) {
-                    0 => 0,
-                    _ => 255,
-                },
-                match thread_rng().gen_range(0..=1) {
-                    0 => 0,
-                    _ => 255,
-                },
-                match thread_rng().gen_range(0..=1) {
-                    0 => 0,
-                    _ => 255,
-                },
-            ]);
+            *pix = match thread_rng().gen_bool(0.5f64) {
+                true => Rgb([0, 0, 0]),
+                false => Rgb([255, 255, 255]),
+            }
         }
         
         imgbuf.save(output_path).unwrap();
