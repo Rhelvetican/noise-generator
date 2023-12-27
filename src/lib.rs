@@ -73,7 +73,10 @@ impl Image {
                     0 => 0,
                     _ => 255,
                 },
-                ,
+                match thread_rng().gen_range(0..=1) {
+                    0 => 0,
+                    _ => 255,
+                },
             ]);
         }
         
