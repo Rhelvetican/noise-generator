@@ -90,19 +90,23 @@ impl Image {
         }
 
         for (_x, _y, pix) in imgbuf.enumerate_pixels_mut() {
-            if self.mode == Mode::BlackAndWhiteOnly {
-                *pix = match thread_rng().gen_bool(0.5f64) {
-                    true => Rgb([0, 0, 0]),
-                    false => Rgb([255, 255, 255]),
+            match self.mode {
+                Mode::BlackAndWhiteOnly => {
+                    *pix = match thread_rng().gen_bool(0.5f64) {
+                        true => Rgb([0, 0, 0]),
+                        false => Rgb([255, 255, 255]),
+                    }
                 }
-            } else if self.mode == Mode::Grayscale {
-                let r = thread_rng().gen_range(0..=255);
-                *pix = Rgb([r, r, r]);
-            } else {
-                let r = thread_rng().gen_range(0..=255);
-                let g = thread_rng().gen_range(0..=255);
-                let b = thread_rng().gen_range(0..=255);
-                *pix = Rgb([r, g, b]);
+                Mode::Grayscale => {
+                    let r = thread_rng().gen_range(0..=255);
+                    *pix = Rgb([r, r, r]);
+                }
+                Mode::Rainbow => {
+                    let r = thread_rng().gen_range(0..=255);
+                    let g = thread_rng().gen_range(0..=255);
+                    let b = thread_rng().gen_range(0..=255);
+                    *pix = Rgb([r, g, b]);
+                }
             }
         }
 
