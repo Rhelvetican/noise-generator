@@ -6,6 +6,9 @@ pub enum Mode {
     BlackAndWhiteOnly,
     Grayscale,
     Rainbow,
+    Red,
+    Green,
+    Blue
 }
 
 impl Mode {
@@ -38,6 +41,27 @@ impl Mode {
                 }
                 for i in 0..=255 {
                     pallette.push(Rgb([0, 0, 255 - i]));
+                }
+                pallette
+            }
+            Mode::Red => {
+                let mut pallette = Vec::new();
+                for i in 0..=255 {
+                    pallette.push(Rgb([i, 0, 0]));
+                }
+                pallette
+            }
+            Mode::Green => {
+                let mut pallette = Vec::new();
+                for i in 0..=255 {
+                    pallette.push(Rgb([0, i, 0]));
+                }
+                pallette
+            }
+            Mode::Blue => {
+                let mut pallette = Vec::new();
+                for i in 0..=255 {
+                    pallette.push(Rgb([0, 0, i]));
                 }
                 pallette
             }
@@ -82,12 +106,17 @@ impl Image {
         }
     }
     pub fn generate_image(self, output_path: &str) {
+
+        //Initialize image buffer
+
         let (width, height) = self.resolution.get_resolution();
         let mut imgbuf = image::ImageBuffer::new(width, height);
         let pallette = self.mode.get_pallette();
         for (x, y, pixel) in imgbuf.enumerate_pixels_mut() {
             *pixel = pallette[(x + y) as usize % pallette.len()];
         }
+
+        //Generate image
 
         for (_x, _y, pix) in imgbuf.enumerate_pixels_mut() {
             match self.mode {
@@ -107,8 +136,22 @@ impl Image {
                     let b = thread_rng().gen_range(0..=255);
                     *pix = Rgb([r, g, b]);
                 }
+                Mode::Red => {
+                    let r = thread_rng().gen_range(0..=255);
+                    *pix = Rgb([r, 0, 0]);
+                }
+                Mode::Green => {
+                    let g = thread_rng().gen_range(0..=255);
+                    *pix = Rgb([0, g, 0]);
+                }
+                Mode::Blue => {
+                    let b = thread_rng().gen_range(0..=255);
+                    *pix = Rgb([0, 0, b]);
+                }
             }
         }
+
+        //Save image
 
         imgbuf.save(output_path).expect("Failed to save image.");
     }
