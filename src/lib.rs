@@ -110,6 +110,6 @@ impl Image {
             }
         }
 
-        imgbuf.save(output_path).unwrap();
+        imgbuf.save(output_path).expect("Failed to save image.");
     }
 }
