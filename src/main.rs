@@ -77,6 +77,9 @@ fn main() {
     println!("1. Black and White");
     println!("2. Grayscale");
     println!("3. Rainbow");
+    println!("4. Red");
+    println!("5. Green");
+    println!("6. Blue");
 
     let mut read_buffer = String::new();
     std::io::stdin()
@@ -87,6 +90,9 @@ fn main() {
         "1" => Mode::BlackAndWhiteOnly,
         "2" => Mode::Grayscale,
         "3" => Mode::Rainbow,
+        "4" => Mode::Red,
+        "5" => Mode::Green,
+        "6" => Mode::Blue,
         _ => {
             println!("Invalid input, defaulting to Black and White");
             Mode::BlackAndWhiteOnly
