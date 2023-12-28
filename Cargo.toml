@@ -13,7 +13,6 @@ rand = "0.8.5"
 opt-level = 3
 debug = false
 lto = true
-mir = true
 
 [[bin]]
 name = "noise-generator"
