@@ -2,7 +2,12 @@ use image::ImageFormat;
 use noise_generator::*;
 use std::path::PathBuf;
 
+const VERSION: &str = env!("CARGO_PKG_VERSION");
+
 fn main() {
+
+    println!("Noise Generator v{}", VERSION);
+
     println!("Choose your resolution: ");
     println!("1. SD (640x480)");
     println!("2. HD (1280x720)");
