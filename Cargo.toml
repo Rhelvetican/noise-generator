@@ -13,6 +13,3 @@ rand = "0.8.5"
 opt-level = 3
 debug = false
 lto = true
-
-[build]
-rustflags = ["-Z", "threads=8"]
