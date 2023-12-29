@@ -7,7 +7,7 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 fn main() {
 
     println!();
-    println!("Noise Generator v{}", VERSION);
+    println!("Noise Generator Version {}", VERSION);
     println!();
 
     println!("Choose your resolution: ");
