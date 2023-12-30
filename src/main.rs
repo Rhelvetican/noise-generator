@@ -106,6 +106,19 @@ fn main() {
         }
     };
 
+    println!("Enter your alpha level (0 ~ 255): ");
+
+    let mut read_buffer = String::new();
+    std::io::stdin()
+        .read_line(&mut read_buffer)
+        .expect("Failed to read line");
+
+    let alpha = read_buffer
+        .as_str()
+        .trim()
+        .parse::<u8>()
+        .expect("Failed to parse alpha");
+
     if !PathBuf::from("output").exists() {
         std::fs::DirBuilder::new()
             .recursive(true)
@@ -113,7 +126,7 @@ fn main() {
             .expect("Failed to create output directory");
     }
 
-    let img_info = Image::new(mode, res, format);
+    let img_info = Image::new(mode, res, format, alpha);
     match img_info.format {
         ImageFormat::Png => {
             img_info.generate_image("output/out.png");
@@ -122,6 +135,7 @@ fn main() {
             img_info.generate_image("output/out.bmp");
         }
         ImageFormat::Jpeg => {
+
             img_info.generate_image("output/out.jpeg");
         }
         _ => {

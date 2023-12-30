@@ -1,4 +1,4 @@
-use image::{ImageFormat, Rgb};
+use image::{ImageFormat, Rgba};
 use rand::{thread_rng, Rng};
 
 #[derive(PartialEq)]
@@ -12,60 +12,8 @@ pub enum Mode {
 }
 
 impl Mode {
-    pub fn get_pallette(&self) -> Vec<Rgb<u8>> {
-        match self {
-            Mode::BlackAndWhiteOnly => vec![Rgb([0, 0, 0]), Rgb([255, 255, 255])],
-            Mode::Grayscale => {
-                let mut pallette = Vec::new();
-                for i in 0..=255 {
-                    pallette.push(Rgb([i, i, i]));
-                }
-                pallette
-            }
-            Mode::Rainbow => {
-                let mut pallette = Vec::new();
-                for i in 0..=255 {
-                    pallette.push(Rgb([i, 0, 0]));
-                }
-                for i in 0..=255 {
-                    pallette.push(Rgb([255, i, 0]));
-                }
-                for i in 0..=255 {
-                    pallette.push(Rgb([255, 255, i]));
-                }
-                for i in 0..=255 {
-                    pallette.push(Rgb([255 - i, 255, 255]));
-                }
-                for i in 0..=255 {
-                    pallette.push(Rgb([0, 255 - i, 255]));
-                }
-                for i in 0..=255 {
-                    pallette.push(Rgb([0, 0, 255 - i]));
-                }
-                pallette
-            }
-            Mode::Red => {
-                let mut pallette = Vec::new();
-                for i in 0..=255 {
-                    pallette.push(Rgb([i, 0, 0]));
-                }
-                pallette
-            }
-            Mode::Green => {
-                let mut pallette = Vec::new();
-                for i in 0..=255 {
-                    pallette.push(Rgb([0, i, 0]));
-                }
-                pallette
-            }
-            Mode::Blue => {
-                let mut pallette = Vec::new();
-                for i in 0..=255 {
-                    pallette.push(Rgb([0, 0, i]));
-                }
-                pallette
-            }
-        }
+    pub fn get_pallette(&self) -> Vec<Rgba<u8>> {
+        vec![Rgba([0, 0, 0, 255]), Rgba([255, 255, 255, 255])]
     }
 }
 
@@ -95,14 +43,16 @@ pub struct Image {
     pub mode: Mode,
     pub resolution: Resolution,
     pub format: ImageFormat,
+    pub alpha: u8,
 }
 
 impl Image {
-    pub fn new(mode: Mode, resolution: Resolution, format: ImageFormat) -> Self {
+    pub fn new(mode: Mode, resolution: Resolution, format: ImageFormat, alpha: u8) -> Self {
         Self {
             mode,
             resolution,
             format,
+            alpha
         }
     }
     pub fn generate_image(self, output_path: &str) {
@@ -122,31 +72,31 @@ impl Image {
             match self.mode {
                 Mode::BlackAndWhiteOnly => {
                     *pix = match thread_rng().gen_bool(0.5f64) {
-                        true => Rgb([0, 0, 0]),
-                        false => Rgb([255, 255, 255]),
+                        true => Rgba([0, 0, 0, self.alpha]),
+                        false => Rgba([255, 255, 255, self.alpha]),
                     }
                 }
                 Mode::Grayscale => {
                     let r = thread_rng().gen_range(0..=255);
-                    *pix = Rgb([r, r, r]);
+                    *pix = Rgba([r, r, r, self.alpha]);
                 }
                 Mode::Rainbow => {
                     let r = thread_rng().gen_range(0..=255);
                     let g = thread_rng().gen_range(0..=255);
                     let b = thread_rng().gen_range(0..=255);
-                    *pix = Rgb([r, g, b]);
+                    *pix = Rgba([r, g, b, self.alpha]);
                 }
                 Mode::Red => {
                     let r = thread_rng().gen_range(0..=255);
-                    *pix = Rgb([r, 0, 0]);
+                    *pix = Rgba([r, 0, 0, self.alpha]);
                 }
                 Mode::Green => {
                     let g = thread_rng().gen_range(0..=255);
-                    *pix = Rgb([0, g, 0]);
+                    *pix = Rgba([0, g, 0, self.alpha]);
                 }
                 Mode::Blue => {
                     let b = thread_rng().gen_range(0..=255);
-                    *pix = Rgb([0, 0, b]);
+                    *pix = Rgba([0, 0, b, self.alpha]);
                 }
             }
         }
