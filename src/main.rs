@@ -63,6 +63,7 @@ fn main() {
     println!("1. PNG");
     println!("2. BMP");
     println!("3. JPEG");
+    println!("4. WEBP");
 
     let mut read_buffer = String::new();
     std::io::stdin()
@@ -73,6 +74,7 @@ fn main() {
         "1" => ImageFormat::Png,
         "2" => ImageFormat::Bmp,
         "3" => ImageFormat::Jpeg,
+        "4" => ImageFormat::WebP,
         _ => {
             println!("Invalid input, defaulting to PNG");
             ImageFormat::Png
@@ -117,7 +119,7 @@ fn main() {
         .trim()
         .parse::<u8>()
         .expect("Failed to parse alpha");
-
+    
     if !PathBuf::from("output").exists() {
         std::fs::DirBuilder::new()
             .recursive(true)
@@ -135,6 +137,9 @@ fn main() {
         }
         ImageFormat::Jpeg => {
             img_info.generate_image("output/out.jpeg");
+        }
+        ImageFormat::WebP => {
+            img_info.generate_image("output/out.webp");
         }
         _ => {
             println!("Invalid image format, defaulting to PNG");
