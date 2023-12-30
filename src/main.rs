@@ -5,7 +5,6 @@ use std::path::PathBuf;
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 fn main() {
-
     println!();
     println!("Noise Generator Version {}", VERSION);
     println!();
@@ -135,7 +134,6 @@ fn main() {
             img_info.generate_image("output/out.bmp");
         }
         ImageFormat::Jpeg => {
-
             img_info.generate_image("output/out.jpeg");
         }
         _ => {

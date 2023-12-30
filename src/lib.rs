@@ -8,7 +8,7 @@ pub enum Mode {
     Rainbow,
     Red,
     Green,
-    Blue
+    Blue,
 }
 
 impl Mode {
@@ -52,11 +52,10 @@ impl Image {
             mode,
             resolution,
             format,
-            alpha
+            alpha,
         }
     }
     pub fn generate_image(self, output_path: &str) {
-
         //Initialize image buffer
 
         let (width, height) = self.resolution.get_resolution();
