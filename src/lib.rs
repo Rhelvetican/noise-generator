@@ -9,6 +9,9 @@ pub enum Mode {
     Red,
     Green,
     Blue,
+    GaussianNoise,
+    PerlinNoise,
+    ExponentNoise,
 }
 
 impl Mode {
