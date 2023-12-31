@@ -100,6 +100,9 @@ impl Image {
                     let b = thread_rng().gen_range(0..=255);
                     *pix = Rgba([0, 0, b, self.alpha]);
                 }
+                Mode::GaussianNoise => todo!(),
+                Mode::PerlinNoise => todo!(),
+                Mode::ExponentNoise => todo!(),
             }
         }
 
