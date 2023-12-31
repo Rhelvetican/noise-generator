@@ -81,28 +81,6 @@ fn main() {
         }
     };
 
-    println!("Skill issues detected... Entering Glizzy mode.");
-    println!("Input your glizzy length: ");
-
-    let mut read_buffer = String::new();
-    std::io::stdin()
-        .read_line(&mut read_buffer)
-        .expect("Failed to read line");
-
-    let glizzy_length = read_buffer
-        .as_str()
-        .trim()
-        .parse::<u32>()
-        .expect("Failed to parse glizzy length");
-
-    if glizzy_length > 69 {
-        println!("Very long glizzy you got there...");
-        println!("Stand pround. You were strong. But not enough to defeat my {}ft glizzy.", glizzy_length + 1);
-    } else {
-        println!("Very short glizzy you got there...");
-        println!("You should be ashamed of yourself.");
-    }
-
     println!("Choose your mode: ");
     println!("1. Black and White");
     println!("2. Grayscale");
