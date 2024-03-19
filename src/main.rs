@@ -1,6 +1,8 @@
+mod utils;
+
 use image::ImageFormat;
-use noise_generator::*;
 use std::path::PathBuf;
+use utils::*;
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -119,7 +121,7 @@ fn main() {
         .trim()
         .parse::<u8>()
         .expect("Failed to parse alpha");
-    
+
     if !PathBuf::from("output").exists() {
         std::fs::DirBuilder::new()
             .recursive(true)
