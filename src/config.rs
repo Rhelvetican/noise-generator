@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use std::{
     fs::{write, DirBuilder},
     path::Path,
+    process::exit,
 };
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -49,10 +50,29 @@ pub fn init() {
     for dir in DIR_LIST.iter() {
         dir_init(dir);
     }
+    let default_config = r#"
+{
+    "mode": "BlackAndWhite",
+    "format": "png",
+    "resolution": {
+        "width": 1920,
+        "height": 1080
+    }
+}
+    "#;
+    if !Path::new(".config/config.json").exists() {
+        write(".config/config.json", default_config).unwrap();
+    }
 }
 
 fn dir_init(dir: &str) {
     if !Path::new(dir).exists() {
-        DirBuilder::new().recursive(true).create(dir).unwrap();
+        match DirBuilder::new().recursive(true).create(dir) {
+            Ok(_) => (),
+            Err(e) => {
+                eprintln!("Error creating directory: {}", e);
+                exit(1);
+            }
+        };
     }
 }
