@@ -89,13 +89,8 @@ fn image_format_to_str(format: &ImageFormat) -> &str {
     match format {
         ImageFormat::Png => "png",
         ImageFormat::Jpeg => "jpeg",
-        ImageFormat::Gif => "gif",
         ImageFormat::WebP => "webp",
-        ImageFormat::Tiff => "tiff",
         ImageFormat::Bmp => "bmp",
-        ImageFormat::Ico => "ico",
-        ImageFormat::Hdr => "hdr",
-        ImageFormat::Pnm => "pnm",
         &_ => "png",
     }
 }

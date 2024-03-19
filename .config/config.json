@@ -1,5 +1,5 @@
 {
-    "mode": "BlackAndWhiteOnly",
+    "mode": "Grayscale",
     "format": "png",
     "resolution": {
         "width": 3840,
