@@ -1,4 +1,4 @@
-pub(crate) const TITLE: &'static str = r#"
+pub(crate) const TITLE: &str = r#"
                 _   ______  _________ ______
                / | / / __ \/  _/ ___// ____/
               /  |/ / / / // / \__ \/ __/   

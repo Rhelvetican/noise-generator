@@ -1,3 +1,5 @@
+use image::ImageFormat;
+
 pub enum Mode {
     BlackAndWhiteOnly,
     Grayscale,
@@ -19,5 +21,16 @@ impl Mode {
             // Default to BlackAndWhiteOnly
             _ => Mode::BlackAndWhiteOnly,
         }
+    }
+}
+
+pub fn get_image_format(format: &str) -> ImageFormat {
+    match format {
+        "png" => ImageFormat::Png,
+        "jpeg" => ImageFormat::Jpeg,
+        "bmp" => ImageFormat::Bmp,
+        "webp" => ImageFormat::WebP,
+        // Default to PNG
+        _ => ImageFormat::Png,
     }
 }

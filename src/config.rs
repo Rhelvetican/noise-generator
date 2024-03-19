@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use std::{
-    fs::{write, DirBuilder},
+    fs::{read_to_string, write, DirBuilder},
     path::Path,
     process::exit,
 };
@@ -16,6 +16,26 @@ pub struct Config {
 pub struct Resolution {
     pub width: u32,
     pub height: u32,
+}
+
+impl Config {
+    pub fn get_config() -> Config {
+        let config = match read_to_string(".config/config.json") {
+            Ok(c) => c,
+            Err(e) => {
+                eprintln!("Error reading config file: {}", e);
+                exit(1);
+            }
+        };
+        match serde_json::from_str(&config) {
+            Ok(c) => c,
+            Err(e) => {
+                eprintln!("Error parsing config file: {}", e);
+                println!("Using default config");
+                Config::default()
+            }
+        }
+    }
 }
 
 impl Resolution {
