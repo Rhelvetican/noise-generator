@@ -8,5 +8,3 @@ A simple noise generator written in Rust.
 - Run `cargo build -r`.
 
 ## Usage
-
-TODO
