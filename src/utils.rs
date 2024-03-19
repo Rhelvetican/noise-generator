@@ -1,5 +1,9 @@
 use image::{ImageFormat, Rgba};
 use rand::{thread_rng, Rng};
+use std::{
+    fs::{write, DirBuilder},
+    path::Path,
+};
 
 #[derive(PartialEq)]
 pub enum Mode {
@@ -15,39 +19,28 @@ impl Mode {
     pub fn get_pallette(&self) -> Vec<Rgba<u8>> {
         vec![Rgba([0, 0, 0, 255]), Rgba([255, 255, 255, 255])]
     }
-}
-
-pub enum Resolution {
-    SD,
-    HD,
-    FHD,
-    QHD,
-    UHD,
-    Custom(u32, u32),
-}
-
-impl Resolution {
-    pub fn get_resolution(&self) -> (u32, u32) {
-        match self {
-            Resolution::SD => (640, 480),
-            Resolution::HD => (1280, 720),
-            Resolution::FHD => (1920, 1080),
-            Resolution::QHD => (2560, 1440),
-            Resolution::UHD => (3840, 2160),
-            Resolution::Custom(width, height) => (*width, *height),
+    pub fn from_str(mode: &str) -> Self {
+        match mode {
+            "BlackAndWhiteOnly" => Mode::BlackAndWhiteOnly,
+            "Grayscale" => Mode::Grayscale,
+            "Rainbow" => Mode::Rainbow,
+            "Red" => Mode::Red,
+            "Green" => Mode::Green,
+            "Blue" => Mode::Blue,
+            _ => Mode::BlackAndWhiteOnly,
         }
     }
 }
 
 pub struct Image {
     pub mode: Mode,
-    pub resolution: Resolution,
+    pub resolution: (u32, u32),
     pub format: ImageFormat,
     pub alpha: u8,
 }
 
 impl Image {
-    pub fn new(mode: Mode, resolution: Resolution, format: ImageFormat, alpha: u8) -> Self {
+    pub fn new(mode: Mode, resolution: (u32, u32), format: ImageFormat, alpha: u8) -> Self {
         Self {
             mode,
             resolution,
@@ -58,7 +51,7 @@ impl Image {
     pub fn generate_image(self, output_path: &str) {
         //Initialize image buffer
 
-        let (width, height) = self.resolution.get_resolution();
+        let (width, height) = self.resolution;
         let mut imgbuf = image::ImageBuffer::new(width, height);
         let pallette = self.mode.get_pallette();
         for (x, y, pixel) in imgbuf.enumerate_pixels_mut() {
@@ -103,5 +96,45 @@ impl Image {
         //Save image
 
         imgbuf.save(output_path).expect("Failed to save image.");
+    }
+}
+
+pub fn config_init() {
+    const DIR_LIST: [&str; 2] = [".config", "output"];
+    for dir in DIR_LIST.iter() {
+        init_dir(dir);
+    }
+    if !Path::new(".config/config.json").exists() {
+        let default_config = r#"{
+            "mode": "BlackAndWhiteOnly",
+            "format": "png",
+            "resolution": {
+                "width": 3840,
+                "height": 2160
+            },
+        }"#;
+        write(".config/config.json", default_config).expect("Failed to create default config file");
+    }
+}
+
+fn init_dir(dir: &str) {
+    if !Path::new(dir).exists() {
+        DirBuilder::new()
+            .recursive(true)
+            .create(dir)
+            .expect("Failed to create output directory");
+    }
+}
+
+pub fn img_fmt_from_str(fmt: &str) -> ImageFormat {
+    match fmt {
+        "png" => ImageFormat::Png,
+        "bmp" => ImageFormat::Bmp,
+        "jpeg" => ImageFormat::Jpeg,
+        "webp" => ImageFormat::WebP,
+        _ => {
+            println!("Invalid input, defaulting to PNG");
+            ImageFormat::Png
+        }
     }
 }

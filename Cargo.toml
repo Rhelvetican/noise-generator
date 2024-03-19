@@ -15,4 +15,5 @@ serde_json = { version = "1", features = ["preserve_order"] }
 opt-level = 3
 debug = false
 lto = true
-
+rpath = true
+strip = "symbols"
