@@ -2,7 +2,7 @@
     "mode": "Grayscale",
     "format": "png",
     "resolution": {
-        "width": 3840,
-        "height": 2160
+        "width": 2160,
+        "height": 4800
     }
 }
