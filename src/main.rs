@@ -3,16 +3,18 @@ mod config;
 mod generate;
 mod utils;
 
+use std::time::Instant;
+
+use anyhow::Result;
 use config::*;
 use generate::Image;
 use utils::*;
 
-fn main() -> Result<(), generate::Error> {
-    config::init();
-
+fn main() -> Result<()> {
     println!("{}", ascii::TITLE);
 
     // Load config...
+    let inst = Instant::now();
     let config = Config::get_config();
     let mode = Mode::from_str(&config.mode);
     let format = get_image_format(&config.format);
@@ -20,5 +22,8 @@ fn main() -> Result<(), generate::Error> {
 
     let image = Image::new(mode, format, resolution);
 
-    image.generate_image("output")
+    image.generate_image("output")?;
+    let elapsed = inst.elapsed().as_secs_f64();
+    println!("Generated image in {:.2}s", elapsed);
+    Ok(())
 }

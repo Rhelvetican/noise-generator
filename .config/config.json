@@ -1,8 +1,8 @@
 {
-    "mode": "Grayscale",
+    "mode": "BlackAndWhite",
     "format": "png",
     "resolution": {
-        "width": 2160,
-        "height": 4800
+        "width": 3840,
+        "height": 2160
     }
 }

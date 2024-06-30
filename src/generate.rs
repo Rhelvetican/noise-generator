@@ -1,4 +1,5 @@
 use crate::utils::Mode;
+use anyhow::Result;
 use image::{ImageFormat, Rgba};
 use rand::{thread_rng, Rng};
 
@@ -7,12 +8,6 @@ pub(super) struct Image {
     pub format: ImageFormat,
     pub resolution: (u32, u32),
     pub alpha: u8,
-}
-
-#[derive(Debug)]
-pub enum Error {
-    // Io(std::io::Error),
-    Image(image::ImageError),
 }
 
 impl Image {
@@ -24,7 +19,7 @@ impl Image {
             alpha: 255,
         }
     }
-    pub fn generate_image(&self, output_dir: &str) -> Result<(), Error> {
+    pub fn generate_image(&self, output_dir: &str) -> Result<()> {
         //Initialize image buffer
 
         let (width, height) = self.resolution;
@@ -80,7 +75,7 @@ impl Image {
             image_format_to_str(&self.format)
         );
 
-        imgbuf.save(output_path).map_err(Error::Image)?;
+        imgbuf.save(output_path)?;
         Ok(())
     }
 }
