@@ -15,7 +15,7 @@ fn main() -> Result<()> {
 
     // Load config...
     let inst = Instant::now();
-    let config = Config::get_config();
+    let config = Config::get_config()?;
     let mode = Mode::from_str(&config.mode);
     let format = get_image_format(&config.format);
     let resolution = config.resolution.tuple();

@@ -1,0 +1,7 @@
+mode = "BlackAndWhite"
+format = "png"
+batch = 1
+
+[resolution]
+width = 1920
+height = 1080
