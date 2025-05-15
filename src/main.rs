@@ -1,29 +1,31 @@
+use clap::Parser;
+use cli::CliArgs;
+use generator::Generator;
+use image::ImageResult;
+
+use rand::rng;
+
+#[cfg(feature = "mimalloc")]
+use mimalloc::MiMalloc;
+#[cfg(feature = "mimalloc")]
+#[global_allocator]
+static MIMALLOC: MiMalloc = MiMalloc;
+
 mod ascii;
-mod config;
-mod generate;
-mod utils;
+mod cli;
+mod error;
+mod generator;
+mod palette;
 
-use std::time::Instant;
+fn main() -> ImageResult<()> {
+    let cli = CliArgs::parse();
+    let mut rng = rng();
 
-use anyhow::Result;
-use config::*;
-use generate::Image;
-use utils::*;
+    let mut gen = Generator::new(&mut rng);
 
-fn main() -> Result<()> {
-    println!("{}", ascii::TITLE);
+    for _ in 0..(cli.quantity) {
+        gen.generate(cli.as_image_config())?;
+    }
 
-    // Load config...
-    let inst = Instant::now();
-    let config = Config::get_config()?;
-    let mode = Mode::from_str(&config.mode);
-    let format = get_image_format(&config.format);
-    let resolution = config.resolution.tuple();
-
-    let image = Image::new(mode, format, resolution);
-
-    image.generate_image("output")?;
-    let elapsed = inst.elapsed().as_secs_f64();
-    println!("Generated image in {:.2}s", elapsed);
     Ok(())
 }

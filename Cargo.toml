@@ -1,21 +1,26 @@
 [package]
-name = "noise-generator"
-authors = ["Rhelvetican <bionicvnb@gmail.com>"]
-description = "A simple noise generator."
-license = "MIT"
-version = "0.6.0"
-edition = "2021"
+    authors     = ["Rhelvetican <bionicvnb@gmail.com>"]
+    description = "A simple noise generator."
+    edition     = "2021"
+    license     = "MIT"
+    name        = "noise-generator"
+    version     = "0.7.0"
+
+[[bin]]
+    name = "ng"
+    path = "src/main.rs"
 
 [dependencies]
-anyhow = "1"
-image = "0.25.0"
-rand = "0.8.5"
-serde = { version = "1", features = ["derive"] }
-toml = "0.8.19"
+    clap  = { version = "4", features = ["derive"] }
+    serde = { version = "1", features = ["derive"] }
 
-[profile.release]
-opt-level = 3
-debug = false
-lto = true
-rpath = true
-strip = "symbols"
+    image     = "0.25.0"
+    rand      = "0.9"
+    sha2      = "0.10"
+    thiserror = "2"
+
+    mimalloc = { version = "0.1", optional = true }
+
+[features]
+    default  = ["mimalloc"]
+    mimalloc = ["dep:mimalloc"]
