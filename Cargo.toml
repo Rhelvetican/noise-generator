@@ -3,7 +3,7 @@
     description = "A simple noise generator."
     edition     = "2021"
     license     = "MIT"
-    name        = "noise-generator"
+    name        = "noisegen"
     version     = "0.7.0"
 
 [[bin]]
